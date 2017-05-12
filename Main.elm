@@ -8,6 +8,18 @@ import Http
 import Json.Decode as Json
 
 
+-- CSS
+
+import Material
+import Material.Scheme as Scheme
+import Material.List as Lists
+import Material.Layout as Layout
+import Material.Button as Button
+import Material.Textfield as Textfield
+import Material.Color as Color
+import Material.Options as Options exposing (css)
+
+
 --Model
 
 
