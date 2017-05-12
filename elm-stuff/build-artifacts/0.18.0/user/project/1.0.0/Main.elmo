@@ -1,0 +1,282 @@
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$Main$postView = function (post) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$a,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$href(post.url),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(post.title),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('<'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(
+								A2(_elm_lang$core$Basics_ops['++'], 'https://www.reddit.com', post.permalink)),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Comments!'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('<<=======================================================>>'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {subreddit: a, posts: b};
+	});
+var _user$project$Main$Subreddit = function (a) {
+	return {name: a};
+};
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: A2(
+		_user$project$Main$Model,
+		_user$project$Main$Subreddit('Elm'),
+		{ctor: '[]'}),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$Main$updateSelection = function (string) {
+	return _user$project$Main$Subreddit(string);
+};
+var _user$project$Main$Post = F4(
+	function (a, b, c, d) {
+		return {title: a, url: b, permalink: c, id: d};
+	});
+var _user$project$Main$decodePost = A5(
+	_elm_lang$core$Json_Decode$map4,
+	_user$project$Main$Post,
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'data',
+			_1: {
+				ctor: '::',
+				_0: 'title',
+				_1: {ctor: '[]'}
+			}
+		},
+		_elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'data',
+			_1: {
+				ctor: '::',
+				_0: 'url',
+				_1: {ctor: '[]'}
+			}
+		},
+		_elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'data',
+			_1: {
+				ctor: '::',
+				_0: 'permalink',
+				_1: {ctor: '[]'}
+			}
+		},
+		_elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'data',
+			_1: {
+				ctor: '::',
+				_0: 'id',
+				_1: {ctor: '[]'}
+			}
+		},
+		_elm_lang$core$Json_Decode$string));
+var _user$project$Main$decodeReddit = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'data',
+		_1: {
+			ctor: '::',
+			_0: 'children',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$list(_user$project$Main$decodePost));
+var _user$project$Main$UpdateReddit = function (a) {
+	return {ctor: 'UpdateReddit', _0: a};
+};
+var _user$project$Main$GetReddit = {ctor: 'GetReddit'};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$input,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$type_('text'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$placeholder('subreddit'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$UpdateReddit),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$GetReddit),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Go'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h3,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(model.subreddit.name),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h3,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											A2(_elm_lang$core$Basics_ops['++'], 'https://www.reddit.com/r/', model.subreddit.name)),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{ctor: '[]'},
+										A2(_elm_lang$core$List$map, _user$project$Main$postView, model.posts)),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$OpenReddit = function (a) {
+	return {ctor: 'OpenReddit', _0: a};
+};
+var _user$project$Main$getInfo = function (string) {
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'https://www.reddit.com/r/',
+		A2(_elm_lang$core$Basics_ops['++'], string, '/.json'));
+	var req = A2(_elm_lang$http$Http$get, url, _user$project$Main$decodeReddit);
+	return A2(_elm_lang$http$Http$send, _user$project$Main$OpenReddit, req);
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'OpenReddit':
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{posts: _p0._0._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: A2(
+							_elm_lang$core$Debug$log,
+							_elm_lang$core$Basics$toString(_p0._0._0),
+							model),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'GetReddit':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Main$getInfo(model.subreddit.name)
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							subreddit: _user$project$Main$updateSelection(_p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, update: _user$project$Main$update, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions})();
