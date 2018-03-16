@@ -45,7 +45,7 @@ type alias Post =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model (Subreddit "Elm") [] Material.model, Cmd.none )
+    ( Model (Subreddit "Elm") [] Material.model, getInfo "Elm" )
 
 
 
@@ -147,8 +147,6 @@ viewContent model =
                 , css "width" "110px"
                 ]
                 [ text "Go!" ]
-            , h5 [] [ text model.subreddit.name ]
-            , h5 [] [ text <| "https://www.reddit.com/r/" ++ model.subreddit.name ]
             , div [ class "wrap-posts" ]
                 [ section []
                     [ Lists.ul [] (List.map postView model.posts) ]
